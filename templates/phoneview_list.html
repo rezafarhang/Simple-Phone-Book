@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head_title %}Phones | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+    <h1>Phone Number List</h1>
+
+    <ul>
+        {% for obj in object_list %}
+            <li>  {{ obj.name }} {{ obj.location }} {{ obj.phone_number }}</li><br>
+            <table>
+            <tr>
+            <th><form method='POST' action="{% url "delete" pk=obj.pk %}"> {% csrf_token %}
+                <button type='submit'>Delete</button>
+            </form></th>
+            <th><form method='POST' action="{% url "update" pk=obj.pk %}"> {% csrf_token %}
+                {{ form.as_p }}
+                <button type='submit'>Edit</button>
+            </form></th>
+            </tr></table>
+            <br>
+            <hr>
+
+
+        {% endfor %}
+    </ul>
+{% endblock %}
